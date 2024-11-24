@@ -36,20 +36,20 @@ The AI Interviewer application is a Streamlit-based tool that uses Google's Gene
    git clone https://github.com/harshith-118/AI-Interviewer.git
    cd AI-Interviewer
    ```
-2.	**Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. **Install dependencies**:
+```bash
+pip install -r requirements.txt
+```
 3. **Set up environment variables**:
-     - Create a .env file in the root directory.
-     - Add the following:
-   ```bash
-   GOOGLE_API_KEY=your_google_api_key
-   ```
+- Create a .env file in the root directory.
+- Add the following:
+```bash
+GOOGLE_API_KEY=your_google_api_key
+```
 4. **Run the application**:
-   ```bash
-   streamlit run app.py
-   ```
+```bash
+streamlit run app.py
+```
 ### Usage Instructions
 1.	**Start the App**:
 	•	Launch the app using the command: streamlit run app.py.
