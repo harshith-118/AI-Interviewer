@@ -33,5 +33,5 @@ The AI Interviewer application is a Streamlit-based tool that uses Google's Gene
 ### Installation Steps
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/harshith-118/AI-Interviewer.git
+   cd AI-Interviewer
