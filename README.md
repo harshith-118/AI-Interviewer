@@ -10,7 +10,7 @@ The AI Interviewer application is a Streamlit-based tool that uses Google's Gene
    - Upload a file (Excel or PDF).
    - Generates interview questions based on the uploaded content.
    - Supports both tabular (Excel) and textual (PDF) data.
-   - Allows users to provide answers, stores the Q&A context, and displays ongoing pairs.
+   - Allows users to provide answers, stores the Q&A context which can be exported via Export Q&A module.
    
 2. **Export Q&A**:
    - Download all Q&A pairs in a `.txt` file.
@@ -59,14 +59,15 @@ streamlit run app.py
 	•	Start Interview: Upload a file and begin generating questions.
 	•	Export Q&A: Download completed Q&A pairs.
 	•	Analyze Responses: Get feedback on your answers.
-3.	**Uploading Files**:
+	•	Reset App: Use this to clear the previous session records after exporting the progress made until now or after generating the analysis of the progress made until now.
+4.	**Uploading Files**:
 	•	Supported formats: Excel (.xlsx) and PDF (.pdf).
 	•	Upload relevant data files in the Start Interview tab.
-4.	**Generate and Answer Questions**:
+5.	**Generate and Answer Questions**:
 	•	Answer generated questions in the text fields provided.
 	•	Context is updated dynamically based on previous Q&A pairs.
-5.	**Export Q&A**:
+6.	**Export Q&A**:
 	•	Download the Q&A pairs as a text file by visiting the “Export Q&A” tab.
-6.	**Analyze Responses**:
+7.	**Analyze Responses**:
 	•	Review AI-generated feedback on your answers in the “Analyze Responses” tab.
 
