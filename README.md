@@ -55,7 +55,7 @@ streamlit run app.py
 	-	Launch the app using the command: streamlit run app.py.
 	-	Access the app in your browser at http://localhost:8501.
 2.	**Navigate Between Tabs**:
-	•	Use the sidebar to select between:
+		Use the sidebar to select between:
 	-	**Start Interview**: Upload a file and begin generating questions.
 	-	**Export Q&A**: Download completed Q&A pairs.
 	-	**Analyze Responses**: Get feedback on your answers.
