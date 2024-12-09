@@ -9,6 +9,10 @@ from dotenv import load_dotenv
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
+# Clear session state for every re-run
+if st.button("Reset App"):
+    st.session_state.clear()
+
 # Initialize session state
 if "context" not in st.session_state:
     st.session_state.context = ""  # Store the conversation context
@@ -47,7 +51,7 @@ def get_gemini_response(input_text):
     response = model.generate_content(input_text)
     return response.text if response else None
 
-def generate_question(data, context, temperature=0.7, max_tokens=256):
+def generate_question(data, temperature=0.7, max_tokens=256):
     """
     Generate a question based on the provided data and context.
     """
@@ -56,8 +60,6 @@ def generate_question(data, context, temperature=0.7, max_tokens=256):
     Your goal is to ask specific, domain-relevant, and engaging questions that build on previous responses.
 
     Data: {data}
-
-    Previous Context: {context}
 
     Based on this information, craft the next question:
     """
@@ -69,25 +71,46 @@ def generate_question(data, context, temperature=0.7, max_tokens=256):
 
 def start_interview(data, is_tabular):
     """
-    Handle the interview process.
+    Handle the interview process for tabular or textual data.
     """
     if is_tabular:
-        for i, row in data.iterrows():
-            question = generate_question(row.to_dict(), st.session_state.context)
-            st.write(f"**Q{i + 1}:** {question}")
-            user_answer = st.text_input(f"Your answer to Q{i + 1}:", key=f"answer_{i}")
+        for index, row in data.iterrows():
+            question = generate_question(row.to_dict())
+            st.write(f"Q: {question}")
+            
+            # Use a unique key for each text input
+            user_answer = st.text_input(
+                f"Your answer to question {index + 1}:", 
+                key=f"answer_{index}"
+            )
+            
             if user_answer:
-                st.session_state.context += f"Q{i + 1}: {question}\nA{i + 1}: {user_answer}\n"
+                # Update session state with the new Q&A pair
+                if 'qa_pairs' not in st.session_state:
+                    st.session_state.qa_pairs = []
                 st.session_state.qa_pairs.append((question, user_answer))
+                st.session_state.context += f"Q: {question}\nA: {user_answer}\n"
+
     else:
         text_chunks = data.split("\n\n")  # Break into smaller chunks
         for i, chunk in enumerate(text_chunks):
-            question = generate_question(chunk, st.session_state.context)
-            st.write(f"**Q{i + 1}:** {question}")
-            user_answer = st.text_input(f"Your answer to Q{i + 1}:", key=f"answer_{i}")
+            question = generate_question(chunk)
+            print(question)
+            print(" ")
+            st.write(f"Q: {question}")
+            
+            # Use a unique key for each text input
+            user_answer = st.text_input(
+                f"Your answer to question {i + 1}:", 
+                key=f"answer_{i}"
+            )
+            
             if user_answer:
-                st.session_state.context += f"Q{i + 1}: {question}\nA{i + 1}: {user_answer}\n"
+                # Update session state with the new Q&A pair
+                if 'qa_pairs' not in st.session_state:
+                    st.session_state.qa_pairs = []
                 st.session_state.qa_pairs.append((question, user_answer))
+                st.session_state.context += f"Q: {question}\nA: {user_answer}\n"
 
 def analyze_responses(qa_pairs):
     """
@@ -95,7 +118,7 @@ def analyze_responses(qa_pairs):
     """
     responses = "\n".join([f"Q: {q}\nA: {a}" for q, a in qa_pairs])
     prompt = f"""
-    You are a professional scrutnizer. Based on the following Q&A conversation, provide a concise review on how questions were answered and suggestions on area of improvement:
+    You are a professional scrutnizer. Based on the following Q&A conversation, provide a concise review on how questions were answered and suggestions on area of improvement and don't ask the questions which are already present in the response:
     {responses}
     """
     try:
@@ -105,7 +128,6 @@ def analyze_responses(qa_pairs):
         return f"Error generating summary: {str(e)}"
 
 # Streamlit UI
-
 
 # Sidebar navigation (Tabs)
 option = st.sidebar.radio(
@@ -144,19 +166,12 @@ if option == "Start Interview":
                 st.write("Processing textual data...")
                 start_interview(data, is_tabular=False)
 
-            # Display Q&A pairs so far
-            if st.session_state.qa_pairs:
-                st.write("### Previous Q&A Pairs:")
-                for idx, (q, a) in enumerate(st.session_state.qa_pairs, 1):
-                    st.write(f"**{q}**")
-                    st.write(f"**{a}**")
-
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 
 elif option == "Export Q&A":
     if st.session_state.qa_pairs:
-        qa_text = "\n\n".join([f"Q: {q}\nA: {a}" for q, a in st.session_state.qa_pairs])
+        qa_text = "\n\n".join([f"{q}\n{a}" for q, a in st.session_state.qa_pairs])
         st.download_button(
             "Download Q&A",
             qa_text,
