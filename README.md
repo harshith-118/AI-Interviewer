@@ -10,7 +10,7 @@ The AI Interviewer application is a Streamlit-based tool that uses Google's Gene
    - Upload a file (Excel or PDF).
    - Generates interview questions based on the uploaded content.
    - Supports both tabular (Excel) and textual (PDF) data.
-   - Allows users to provide answers, stores the Q&A context which can be exported via Export Q&A module.
+   - Allows users to provide answers, and stores the Q&A context which can be exported via the Export Q&A module.
    
 2. **Export Q&A**:
    - Download all Q&A pairs in a `.txt` file.
@@ -52,8 +52,8 @@ streamlit run app.py
 ```
 ### Usage Instructions
 1.	**Start the App**:
-	•	Launch the app using the command: streamlit run app.py.
-	•	Access the app in your browser at http://localhost:8501.
+	-	Launch the app using the command: streamlit run app.py.
+	-	Access the app in your browser at http://localhost:8501.
 2.	**Navigate Between Tabs**:
 	•	Use the sidebar to select between:
 	-	**Start Interview**: Upload a file and begin generating questions.
@@ -61,13 +61,13 @@ streamlit run app.py
 	-	**Analyze Responses**: Get feedback on your answers.
 	-	**Reset App**: Use this to clear the previous session records after exporting the progress made until now or after generating the analysis of the progress made until now.
 4.	**Uploading Files**:
-	•	Supported formats: Excel (.xlsx) and PDF (.pdf).
-	•	Upload relevant data files in the Start Interview tab.
+	-	Supported formats: Excel (.xlsx) and PDF (.pdf).
+	-	Upload relevant data files in the Start Interview tab.
 5.	**Generate and Answer Questions**:
-	•	Answer generated questions in the text fields provided.
-	•	Context is updated dynamically based on previous Q&A pairs.
+	-	Answer generated questions in the text fields provided.
+	-	Context is updated dynamically based on previous Q&A pairs.
 6.	**Export Q&A**:
-	•	Download the Q&A pairs as a text file by visiting the “Export Q&A” tab.
+	-	Download the Q&A pairs as a text file by visiting the “Export Q&A” tab.
 7.	**Analyze Responses**:
-	•	Review AI-generated feedback on your answers in the “Analyze Responses” tab.
+	-	Review AI-generated feedback on your answers in the “Analyze Responses” tab.
 
