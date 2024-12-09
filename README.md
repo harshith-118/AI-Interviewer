@@ -56,10 +56,10 @@ streamlit run app.py
 	•	Access the app in your browser at http://localhost:8501.
 2.	**Navigate Between Tabs**:
 	•	Use the sidebar to select between:
-	•	Start Interview: Upload a file and begin generating questions.
-	•	Export Q&A: Download completed Q&A pairs.
-	•	Analyze Responses: Get feedback on your answers.
-	•	Reset App: Use this to clear the previous session records after exporting the progress made until now or after generating the analysis of the progress made until now.
+	-	**Start Interview**: Upload a file and begin generating questions.
+	-	**Export Q&A**: Download completed Q&A pairs.
+	-	**Analyze Responses**: Get feedback on your answers.
+	-	**Reset App**: Use this to clear the previous session records after exporting the progress made until now or after generating the analysis of the progress made until now.
 4.	**Uploading Files**:
 	•	Supported formats: Excel (.xlsx) and PDF (.pdf).
 	•	Upload relevant data files in the Start Interview tab.
